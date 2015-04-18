@@ -12,7 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Welcome</h1>
+        <h1>Welcome <%=session.getAttribute("person") %></h1>
         <a href="addProduct.jsp" name="add">Add Product</a>
+        
     </body>
 </html>

@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
@@ -38,4 +39,28 @@ public class Connect {
         
         return conn;
     }
+    
+    public int setdata(String query) throws SQLException {
+        getConnection();
+        int rows = -1;
+        try {
+            Statement s = Connect.getConnection().createStatement();
+            rows = s.executeUpdate(query);
+        } catch (SQLException ex) {
+        }
+        return rows;
+    }
+
+    public ResultSet getData(String query) throws SQLException {
+        getConnection();
+        ResultSet rs = null;
+        try {
+            Statement s = Connect.getConnection().createStatement();
+            rs = s.executeQuery(query);
+        } catch (SQLException ex) {
+        }
+        return rs;
+    }
+   
+
 }

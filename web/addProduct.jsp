@@ -120,7 +120,7 @@
             Email:  <input id="email" name="email"></input>
             Phone:  <input id="phone" name="phone"></input>
             Location:  <input id="location" name="location"></input>
-
+           
             <button id="add" type="submit">Add Product</button>
 
 

@@ -9,13 +9,13 @@ import Credentials.Connect;
 import static Credentials.Connect.getConnection;
 import java.io.Serializable;
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -24,9 +24,11 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import personDetail.Person;
@@ -50,6 +52,16 @@ public class Services implements Serializable {
     @Produces("application/json")
     public Response get() {
         return Response.ok(getProducts("SELECT * FROM product")).build();
+    }
+    
+    @GET
+    @Path("{id}")
+    @Produces("application/json")
+    public Response getById(@PathParam("id") String id) {
+
+        return Response.ok(getProducts("SELECT * FROM product WHERE productID=?", String.valueOf(id))).build();
+
+        // return Response.entity(getResult("SELECT * FROM product")).build();
     }
     
     @POST
@@ -154,6 +166,26 @@ public class Services implements Serializable {
         
     }
     
+     
+  
+    @DELETE
+    @Path("{id}")
+    @Produces("application/json")
+
+    public Response deleteById(@PathParam("id") String id) {
+
+        int result = doUpdate("DELETE FROM product where productID=? ", String.valueOf(id));
+
+        if (result <= 0) {
+            return Response.status(500).build();
+        } else {
+            return Response.ok("ProductID: "+id+ " record is deleted successfully from product").build();
+        }
+        // return Response.entity(getResult("SELECT * FROM product")).build();
+
+    }
+    
+    
     public static JsonArray getResults(String sql, String... params) {
         JsonArray json = null;
         try {
@@ -195,6 +227,7 @@ public class Services implements Serializable {
             JsonArrayBuilder array = Json.createArrayBuilder();
             while (rs.next()) {
                 array.add(Json.createObjectBuilder()
+                        .add("productID", rs.getInt("productID"))
                         .add("title", rs.getString("title"))
                         .add("description", rs.getString("description"))
                         .add("price", rs.getString("price"))
@@ -209,5 +242,19 @@ public class Services implements Serializable {
             // Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return json;
+    }
+    
+     private int doUpdate(String query, String... parameter) {
+        int change = 0;
+        try (Connection conn = Connect.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            for (int i = 1; i <= parameter.length; i++) {
+                pstmt.setString(i, parameter[i - 1]);
+            }
+            change = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return change;
     }
 }
