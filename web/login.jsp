@@ -15,18 +15,18 @@
         <script>
                     $(document).ready(function() {
 
-//                $("#name").focus();
-//                $("#login_form").validate({
-//                    rules: {
-//                        email: {
-//                            required: true,
-//                            email: true
-//                        },
-//                        password: {
-//                            required: true
-//
-//                        }
-//                    },
+                $("#name").focus();
+                $("#login_form").validate({
+                    rules: {
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        password: {
+                            required: true
+
+                        }
+                    },
             submitHandler: function() {
             $.ajax({
             url: "./web/advertise/login",
