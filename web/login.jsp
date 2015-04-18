@@ -10,10 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="http://code.jquery.com/jquery.min.js"></script>
         <script src="jquery.validate.min.js"></script>
         <script>
-                    $(document).ready(function() {
+            $(document).ready(function() {
 
                 $("#name").focus();
                 $("#login_form").validate({
@@ -27,32 +28,32 @@
 
                         }
                     },
-            submitHandler: function() {
-            $.ajax({
-            url: "./web/advertise/login",
-                    dataType: "text",
-                    contentType: 'application/json; charset=UTF-8',
-                    data: JSON.stringify({
-                    "email": $("#email").val(),
-                            "password": $("#password").val()}),
-                    method: "post",
-                    success: function(data) {
-                    // $(location).attr('welcom.jsp');
-                    if (data == 'success') {
-                            alert('LogIN successful');
-                            $('#result').html('Welcome');
-                            window.location.replace("welcome.jsp"); //Reference: http://stackoverflow.com/questions/503093/how-can-i-make-a-redirect-page-using-jquery
+                    submitHandler: function() {
+                        $.ajax({
+                            url: "./web/advertise/login",
+                            dataType: "text",
+                            contentType: 'application/json; charset=UTF-8',
+                            data: JSON.stringify({
+                                "email": $("#email").val(),
+                                "password": $("#password").val()}),
+                            method: "post",
+                            success: function(data) {
+                                // $(location).attr('welcom.jsp');
+                                if (data == 'success') {
+                                    alert('LogIN successful');
+                                    $('#result').html('Welcome');
+                                    window.location.replace("welcome.jsp"); //Reference: http://stackoverflow.com/questions/503093/how-can-i-make-a-redirect-page-using-jquery
+                                }
+                                else {
+                                    alert('LogIN failed');
+                                    $('#result').html('Please Enter Correct Email and Password');
+                                    $('#result').css('color', 'red');
+                                }
+                            }
+                        });
                     }
-                    else {
-                            alert('LogIN failed');
-                            $('#result').html('Please Enter Correct Email and Password');
-                            $('#result').css('color', 'red');
-                    }
-                    }
-            });
-            }
-            });
-                    // Configure an On-Click Listener to Update the Form
+                });
+                // Configure an On-Click Listener to Update the Form
 //                $('#login').click(function() {
 //                    
 //                });
@@ -63,22 +64,22 @@
     <body>
         <form id="login_form">
 
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
-            </div>
-            <br>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
-            </div>
-            <br>
-            <button type="submit" class="btn btn-default" id="login">Submit</button>
+            <!--            <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-default" id="login">Submit</button>-->
 
 
-            <!--            Email: <input id="email"></input>
-                        Password:  <input id="password"></input>
-                        <button id="login">LogIn</button>-->
+            Email: <input id="email"></input>
+            Password:  <input id="password"></input>
+            <button id="login" type="submit">LogIn</button>
 
             <div id="result"></div> 
         </form>

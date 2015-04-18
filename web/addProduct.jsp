@@ -10,40 +10,60 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Product Page</title>
-        <link rel="stylesheet" href="addproduct.css"></link>
+        <link rel="stylesheet" href="addProduct.css"></link>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="http://code.jquery.com/jquery.min.js"></script>
         <script src="jquery.validate.min.js"></script>
         <script>
-           $(document).ready(function() {
-            $("#title").focus();
+            $(document).ready(function() {
+                $("#title").focus();
+                $("#addproduct_form").validate({
+                    rules: {
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        title: {
+                            required: true
+                        },
+                        description: {
+                            required: true
+                           
+                        },
+                        price: {
+                            required: true                   
+                        },
+                        location:{
+                            required: true
+                        }
+                    },
 
 
-
-            //Reference: http://runnable.com/UkmDoGPTV7wtAAja/how-to-use-jquery-validation-ajax-call-on-success
-                //  submitHandler: function() {
-            $('#add').click(function() {
-            $.ajax({
-            url: "./web/advertise/add",
-                    dataType: "json",
-                    method: "post",
-                    contentType: 'application/json; charset=UTF-8',
-                    data: JSON.stringify({
+                //Reference: http://runnable.com/UkmDoGPTV7wtAAja/how-to-use-jquery-validation-ajax-call-on-success
+                  submitHandler: function() {
+               // $('#add').click(function() {
+                    $.ajax({
+                        url: "./web/advertise/add",
+                        dataType: "json",
+                        method: "post",
+                        contentType: 'application/json; charset=UTF-8',
+                        data: JSON.stringify({
                             "title": $("#title").val(),
                             "description": $("#description").val(),
                             "price": $("#price").val(),
                             "email": $("#email").val(),
                             "phone": $("#phone").val(),
-                    "location": $("#location").val()
-                    }),
-                    success: function(data) {
+                            "location": $("#location").val()
+                        }),
+                        success: function(data) {
 
                             alert('Product Added successfully');
-                    $('#result').html('Product Added');
-            }
+                            $('#result').html('Product Added');
+                        }
+                    });
+                }
             });
-            });   
-            });
+        });
         </script>
 
 
