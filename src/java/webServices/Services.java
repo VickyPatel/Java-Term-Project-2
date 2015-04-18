@@ -49,7 +49,7 @@ public class Services implements Serializable {
     @GET
     @Produces("application/json")
     public Response get() {
-        return Response.ok(getResults("SELECT * FROM person")).build();
+        return Response.ok(getProducts("SELECT * FROM product")).build();
     }
     
     @POST
@@ -172,6 +172,36 @@ public class Services implements Serializable {
                         .add("name", rs.getString("name"))
                         .add("email", rs.getString("email"))
                         .add("password", rs.getString("password"))
+                );
+            }
+            json = array.build();
+        } catch (SQLException ex) {
+            // Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return json;
+    }
+    
+    public static JsonArray getProducts(String sql, String... params) {
+        JsonArray json = null;
+        try {
+            Connection conn = getConnection();
+            
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setString(i + 1, params[i]);
+            }
+            ResultSet rs = pstmt.executeQuery();
+            
+            JsonArrayBuilder array = Json.createArrayBuilder();
+            while (rs.next()) {
+                array.add(Json.createObjectBuilder()
+                        .add("title", rs.getString("title"))
+                        .add("description", rs.getString("description"))
+                        .add("price", rs.getString("price"))
+                        .add("email", rs.getString("email"))
+                        .add("phone", rs.getString("phone"))
+                        .add("location", rs.getString("location"))
+                        
                 );
             }
             json = array.build();
