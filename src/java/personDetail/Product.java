@@ -6,6 +6,8 @@
 
 package personDetail;
 
+import java.io.Serializable;
+import javax.ejb.Stateful;
 import javax.json.Json;
 import javax.json.JsonObject;
 
@@ -13,7 +15,8 @@ import javax.json.JsonObject;
  *
  * @author c0633648
  */
-public class Product {
+@Stateful
+public class Product implements Serializable{
     
     public String title;
     public String description;
@@ -21,6 +24,9 @@ public class Product {
     public String email;
     public String phone;
     public String location;
+
+    public Product() {
+    }
 
     public String getTitle() {
         return title;

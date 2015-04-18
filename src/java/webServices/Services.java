@@ -5,7 +5,6 @@
  */
 package webServices;
 
-import personDetail.Person;
 import Credentials.Connect;
 import static Credentials.Connect.getConnection;
 import java.io.Serializable;
@@ -16,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -29,7 +29,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-
+import personDetail.Person;
+import personDetail.Product;
 
 /**
  *
@@ -37,53 +38,56 @@ import javax.ws.rs.core.Response;
  */
 @SessionScoped
 @Path("/advertise")
-public class Services implements Serializable{
-
+public class Services implements Serializable {
+    
     @EJB
     Person person;
+    
+    @EJB
+    Product product;
     
     @GET
     @Produces("application/json")
     public Response get() {
         return Response.ok(getResults("SELECT * FROM person")).build();
     }
-
+    
     @POST
-    @Path("{login}")
+    @Path("login")
     @Consumes("application/json")
     public String getUser(JsonObject json) {
         JsonArray array = null;
         String email = json.getString("email");
         String pass = json.getString("password");
-
+        
         array = getResults("SELECT * FROM person WHERE email= ? AND password= ?", email, pass);
-
+        
         for (javax.json.JsonValue jsonValue : array) {
             System.out.println(jsonValue);
         }
         if (array.size() > 0) {
             System.out.println("correct user detail");
             return "success";
-
+            
         } else {
             System.out.println("incorrect user detail");
             return "fail";
         }
     }
-
+    
     @POST
     @Consumes("application/json")
     public Response insertPerson(JsonObject json) {
-      
+        
         System.out.println("POST method called");
-     
+        
         Response result;
         try {
             // JsonObject json = Json.createReader(new StringReader(str)).readObject();
             String name = json.getString("name");
             String email = json.getString("email");
             String pass = json.getString("password");
-
+            
             Connection conn = getConnection();
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO person (name, email, password) VALUES (?, ?, ?)");
             pstmt.setString(1, name);
@@ -91,18 +95,65 @@ public class Services implements Serializable{
             pstmt.setString(3, pass);
             pstmt.executeUpdate();
             
-            person = new Person(json);
+            person.setName(name);
+            person.setEmail(email);
+            person.setPassword(pass);
             
-           
             result = Response.ok(person.toJSON()).build();
-
+            
         } catch (SQLException ex) {
             result = Response.status(500).entity(ex.getMessage()).build();
         }
         return result;
-
+        
     }
-
+    
+    @POST
+   
+    @Path("add")
+    @Consumes("application/json")
+    public Response addProduct(JsonObject json) {
+        
+        System.out.println("POST method called for add product");
+        
+        Response result;
+        try {
+            
+            String title = json.getString("title");
+            String desc = json.getString("description");
+            String price = json.getString("price");
+            String email = json.getString("email");
+            String phone = json.getString("phone");
+            String location = json.getString("location");
+            System.out.println(email);
+            System.out.println(person.getEmail());
+            System.out.println(title);
+            
+           // if (email.equals(person.getEmail())) {
+                Connection conn = getConnection();
+                PreparedStatement pstmt = conn.prepareStatement("INSERT INTO product (title, description, price,email,phone,location) VALUES (?, ?, ?, ?, ?, ?)");
+                pstmt.setString(1, title);
+                pstmt.setString(2, desc);
+                pstmt.setString(3, price);
+                pstmt.setString(4, email);
+                pstmt.setString(5, phone);
+                pstmt.setString(6, location);
+                pstmt.executeUpdate();
+                System.out.println(location);
+                
+                product = new Product(json);
+                
+                result = Response.ok(product.toJSON()).build();
+//            }else{
+//                result = Response.status(404).build();
+//            }
+        } catch (SQLException ex) {
+            result = Response.status(500).entity(ex.getMessage()).build();
+        }
+        return result;
+        
+    }
+    
     public static JsonArray getResults(String sql, String... params) {
         JsonArray json = null;
         try {
@@ -113,7 +164,7 @@ public class Services implements Serializable{
                 pstmt.setString(i + 1, params[i]);
             }
             ResultSet rs = pstmt.executeQuery();
-
+            
             JsonArrayBuilder array = Json.createArrayBuilder();
             while (rs.next()) {
                 array.add(Json.createObjectBuilder()
