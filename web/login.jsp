@@ -46,6 +46,7 @@
                     else {
                     alert('LogIN failed');
                             $('#result').html('Please Enter Correct Email and Password');
+                            $('#result').css('color', 'red');
                     }
                     }
             });
