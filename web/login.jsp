@@ -41,6 +41,7 @@
                     if (data == 'success') {
                     alert('LogIN successful');
                             $('#result').html('Welcome');
+                            window.location.replace("welcome.jsp"); //Reference: http://stackoverflow.com/questions/503093/how-can-i-make-a-redirect-page-using-jquery
                     }
                     else {
                     alert('LogIN failed');
