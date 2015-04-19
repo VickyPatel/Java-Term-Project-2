@@ -23,14 +23,60 @@
 <html>
     <head>
         
+   <link rel="stylesheet" href="home.css">
+   <style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+}
 
+#customers td, #customers th {
+    font-size: 1em;
+    border: 1px solid #98bf21;
+    padding: 3px 7px 2px 7px;
+}
+
+#customers th {
+    font-size: 1.1em;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    background-color: #A7C942;
+    color: #ffffff;
+}
+
+#customers tr.alt td {
+    color: #000000;
+    background-color: #EAF2D3;
+}
+</style>
     </head>
 
-    <body>
-       
-               
-                
-                    <table >
+
+       <body>
+        <header>
+
+            <img src="./image/logo.jpg" alt="OneClick" height="85" width= "85">
+            <h1>One Click</h1>
+            <h2> Easy to find </h2>
+
+            <nav>
+                <ul>
+                    <li><a  href = "index.html"> Home </a></li>
+                    <li><a class = "current" href = "product.jsp">Product List</a></li>
+                    <li><a href="addProduct.jsp" name="add">Add Product</a></li>
+                    <li><a href="register.jsp" name="register">Register</a></li>
+                    <li><a href="login.jsp" name="login">Login</a></li>
+                    <li><a href="logout.jsp" name="logput">LogOut</a></li>
+                </ul>
+            </nav>
+
+        </header>
+
+
+        <section>
+            <table id="customers" >
                         <tr >
                             <th> Title</th>
                             <th >Description</th>
@@ -61,9 +107,14 @@
                         </tr>
 
                     </table>
-               
 
 
 
+            <div id="result"></div>
+      
+        </section>
+        <footer>
+            <p>&#169; 2015 Vickykumar</p>
+        </footer>
     </body>
 </html>

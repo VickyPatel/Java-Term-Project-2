@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <link rel="stylesheet" href="style.css">
         <script src="http://code.jquery.com/jquery.min.js"></script>
         <script src="jquery.validate.min.js"></script>
         <script>
@@ -63,26 +64,34 @@
         </script>
     </head>
     <body>
+    
+         <div class="container">
+
+  <div id="login-form">
+
+    <h3>Login</h3>
+
+    <fieldset>
+
         <form id="login_form">
 
-            <!--            <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter email">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password">
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-default" id="login">Submit</button>-->
+            <input required  type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+           <input type="submit" value="Login">
 
+      
 
-            Email: <input id="email"></input>
-            Password:  <input id="password"></input>
-            <button id="login" type="submit">LogIn</button>
+         <footer class="clearfix">
 
-            <div id="result"></div> 
-        </form>
+          <p></p>
+
+        </footer>
+      </form>
+
+    </fieldset>
+
+  </div> <!-- end login-form -->
+
+</div>
     </body>
 </html>
