@@ -68,7 +68,7 @@
                     <li><a href="addProduct.jsp" name="add">Add Product</a></li>
                     <li><a href="register.jsp" name="register">Register</a></li>
                     <li><a href="login.jsp" name="login">Login</a></li>
-                    <li><a href="logout.jsp" name="logput">LogOut</a></li>
+                    <li><a href="logout.jsp" name="logout">LogOut</a></li>
                 </ul>
             </nav>
 
@@ -84,6 +84,8 @@
                             <th>Price</th>          
                             <th>Phone</th>
                             <th>Location</th>
+                            <th>Delete</th>
+                            <th>Edit</th>
                         </tr>
                         <tr>
                             <% 
@@ -96,9 +98,12 @@
                             <td><%=rs.getString("description")%></td>
                             <td><%=rs.getString("email")%></td>
                             <td><%=rs.getString("price")%></td>
+                            <td><%=rs.getString("phone")%></td>
                             <td><%=rs.getString("location")%></td> 
 
                             <td><b><span lang="en-us"><a href="?did=<%=rs.getString("productID")%>">Delete</a></span></b></td>
+                            <td><b><span lang="en-us"><a href="?eid=<%=rs.getString("productID")%>">Edit</a></span></b></td>
+                       
                         </tr>
                         <%
                                 count++;   /// increment of counter

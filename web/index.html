@@ -23,19 +23,19 @@ and open the template in the editor.
 
 
         <script>
-            $(document).ready(function() {
-                //Reference: http://iviewsource.com/codingtutorials/getting-started-with-javascript-object-notation-json-for-absolute-beginners/
-                $.getJSON('./web/advertise', function(data) {
-                    var output = "<table> <tr> <th>Title</th> <th>Description</th> <th>Email</th> <th>Price</th> <th>Phone</th> <th>Location</th></tr>";
-                    for (var i in data) {
-                        output += "<tr><td>" + data[i].title + "</td><td>" + data[i].description + "</td><td> " + data[i].email + "</td><td>" + data[i].price + "</td><td>" + data[i].phone + "</td><td>" + data[i].location + "</td></tr>";
-                    }
-
-                    output += "</table>";
-                    document.getElementById("result").innerHTML = output;
-                });
-
-            });
+//            $(document).ready(function() {
+//                //Reference: http://iviewsource.com/codingtutorials/getting-started-with-javascript-object-notation-json-for-absolute-beginners/
+//                $.getJSON('./web/advertise', function(data) {
+//                    var output = "<table> <tr> <th>Title</th> <th>Description</th> <th>Email</th> <th>Price</th> <th>Phone</th> <th>Location</th></tr>";
+//                    for (var i in data) {
+//                        output += "<tr><td>" + data[i].title + "</td><td>" + data[i].description + "</td><td> " + data[i].email + "</td><td>" + data[i].price + "</td><td>" + data[i].phone + "</td><td>" + data[i].location + "</td></tr>";
+//                    }
+//
+//                    output += "</table>";
+//                    document.getElementById("result").innerHTML = output;
+//                });
+//
+//            });
         </script>
     </head>
     <body>
@@ -50,7 +50,7 @@ and open the template in the editor.
                    <li><a class = "current" href = "index.html"> Home </a></li>
                     <li><a href = "product.jsp">Product List</a></li>
                     <li><a href="addProduct.jsp" name="add">Add Product</a></li>
-                    <li><a href="register.xhtml" name="register">Register</a></li>
+                    <li><a href="register.jsp" name="register">Register</a></li>
                     <li><a href="login.jsp" name="login">Login</a></li>
                     <li><a href="logout.jsp" name="logput">LogOut</a></li>
 
@@ -62,6 +62,8 @@ and open the template in the editor.
 
         <section>
 
+            <img src="./image/header-banner.jpg" alt="OneClick"  style="padding-left: 25px">
+           
             <h1>Welcome to One Click World.</h1>
             <h2> Please come in and stay awhile.</h2>
             <p class ="space"> One click is free local classifieds site for selling anything from used cars to mobiles, furniture, laptops, clothing and more. If you want to buy something - here you will find interesting items, cheaper than in the store. </p>
@@ -73,7 +75,7 @@ and open the template in the editor.
 
 
 
-            <div id="result"></div>
+<!--            <div id="result"></div>-->
             <!--        <table id="result" class="hidden">
                         <tr>
                             <th>Name</th>

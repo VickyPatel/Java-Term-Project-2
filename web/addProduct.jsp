@@ -57,6 +57,7 @@
 
                                 alert('Product Added successfully');
                                 $('#result').html('Product Added');
+                                window.location.replace("product.jsp");
                             }
                         });
                     }

@@ -103,6 +103,7 @@ ID: c0633648
                     <li><a href="addProduct.jsp" name="add">Add Product</a></li>
                     <li><a class = "current" href="register.jsp" name="register">Register</a></li>
                     <li><a href="login.jsp" name="login">Login</a></li>
+                    <li><a href="logout.jsp" name="logput">LogOut</a></li>
                 </ul>
             </nav>
 
